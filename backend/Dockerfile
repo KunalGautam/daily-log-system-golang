@@ -1,0 +1,29 @@
+FROM golang:1.24-alpine AS builder
+
+RUN apk add --no-cache gcc musl-dev
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o /app/server ./cmd/server
+
+FROM alpine:3.21
+
+RUN apk add --no-cache ca-certificates tzdata curl
+
+RUN adduser -D -g '' lifelog
+
+COPY --from=builder /app/server /usr/local/bin/server
+
+USER lifelog
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/healthz || exit 1
+
+ENTRYPOINT ["server"]

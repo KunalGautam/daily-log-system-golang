@@ -1,0 +1,39 @@
+# Dependencies
+backend/vendor/
+frontend/node_modules/
+
+# Build output
+backend/server
+frontend/dist/
+
+# Environment
+.env
+.env.local
+*.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+
+# Uploads
+uploads/
+
+# Docker
+docker-data/
+
+# Logs
+*.log

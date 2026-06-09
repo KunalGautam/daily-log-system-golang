@@ -1,0 +1,454 @@
+### LifeLog API Endpoints
+### Base URL: http://localhost:8080/api/v1
+
+### ===== Authentication =====
+
+### Register
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "username": "johndoe",
+  "password": "SecurePass123!",
+  "display_name": "John Doe"
+}
+
+### Login
+POST http://localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "SecurePass123!"
+}
+
+### Login with TOTP
+POST http://localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "SecurePass123!",
+  "totp_code": "123456"
+}
+
+### Logout
+POST http://localhost:8080/api/v1/auth/logout
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+### Refresh Token
+POST http://localhost:8080/api/v1/auth/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "{{refresh_token}}"
+}
+
+### Verify Email
+POST http://localhost:8080/api/v1/auth/verify
+Content-Type: application/json
+
+{
+  "token": "{{verification_token}}"
+}
+
+### Forgot Password
+POST http://localhost:8080/api/v1/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "user@example.com"
+}
+
+### Reset Password
+POST http://localhost:8080/api/v1/auth/reset-password
+Content-Type: application/json
+
+{
+  "token": "{{reset_token}}",
+  "password": "NewSecurePass456!"
+}
+
+### Setup TOTP
+POST http://localhost:8080/api/v1/auth/totp/setup
+Authorization: Bearer {{access_token}}
+
+### Verify TOTP
+POST http://localhost:8080/api/v1/auth/totp/verify
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "code": "123456"
+}
+
+### Disable TOTP
+POST http://localhost:8080/api/v1/auth/totp/disable
+Authorization: Bearer {{access_token}}
+
+### Passkey Registration (WebAuthn)
+POST http://localhost:8080/api/v1/auth/passkey/register
+Authorization: Bearer {{access_token}}
+
+### Passkey Login
+POST http://localhost:8080/api/v1/auth/passkey/login
+Content-Type: application/json
+
+### List Sessions
+GET http://localhost:8080/api/v1/auth/sessions
+Authorization: Bearer {{access_token}}
+
+### Revoke Session
+DELETE http://localhost:8080/api/v1/auth/sessions/{{session_id}}
+Authorization: Bearer {{access_token}}
+
+### Revoke All Sessions
+DELETE http://localhost:8080/api/v1/auth/sessions
+Authorization: Bearer {{access_token}}
+
+### ===== Users =====
+
+### Get Profile
+GET http://localhost:8080/api/v1/users/me
+Authorization: Bearer {{access_token}}
+
+### Update Profile
+PUT http://localhost:8080/api/v1/users/me
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "display_name": "John Updated",
+  "bio": "Life logger enthusiast"
+}
+
+### Get Settings
+GET http://localhost:8080/api/v1/users/me/settings
+Authorization: Bearer {{access_token}}
+
+### Update Settings
+PUT http://localhost:8080/api/v1/users/me/settings
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "theme": "dark",
+  "language": "en",
+  "notification_enabled": true,
+  "daily_reminder_time": "20:00"
+}
+
+### List Notifications
+GET http://localhost:8080/api/v1/users/me/notifications?page=1
+Authorization: Bearer {{access_token}}
+
+### Mark Notification Read
+PUT http://localhost:8080/api/v1/users/me/notifications/{{notification_id}}/read
+Authorization: Bearer {{access_token}}
+
+### Mark All Notifications Read
+PUT http://localhost:8080/api/v1/users/me/notifications/read
+Authorization: Bearer {{access_token}}
+
+### ===== Entries =====
+
+### List Entries
+GET http://localhost:8080/api/v1/entries?page=1&page_size=20&sort=entry_date&sort_dir=desc
+Authorization: Bearer {{access_token}}
+
+### List Entries with Filters
+GET http://localhost:8080/api/v1/entries?entry_type=mood&mood_min=5&start_date=2026-01-01&end_date=2026-06-09&search=good
+Authorization: Bearer {{access_token}}
+
+### Create Entry
+POST http://localhost:8080/api/v1/entries
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "entry_type": "mood",
+  "title": "Great day!",
+  "description": "Had a wonderful day",
+  "mood_score": 8,
+  "activities": ["reading", "exercise", "cooking"],
+  "visibility": "private",
+  "entry_date": "2026-06-09"
+}
+
+### Create Journal Entry
+POST http://localhost:8080/api/v1/entries
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "entry_type": "journal",
+  "title": "Reflections",
+  "markdown_content": "# Today\n\nIt was a **productive** day.\n\n- Finished the project\n- Went for a walk\n\n> Stay focused!",
+  "visibility": "private",
+  "entry_date": "2026-06-09"
+}
+
+### Get Entry
+GET http://localhost:8080/api/v1/entries/{{entry_id}}
+Authorization: Bearer {{access_token}}
+
+### Update Entry
+PUT http://localhost:8080/api/v1/entries/{{entry_id}}
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Updated title",
+  "mood_score": 9
+}
+
+### Delete Entry
+DELETE http://localhost:8080/api/v1/entries/{{entry_id}}
+Authorization: Bearer {{access_token}}
+
+### List Tags
+GET http://localhost:8080/api/v1/entries/tags
+Authorization: Bearer {{access_token}}
+
+### Create Tag
+POST http://localhost:8080/api/v1/entries/tags
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "important",
+  "color": "#EF4444"
+}
+
+### Delete Tag
+DELETE http://localhost:8080/api/v1/entries/tags/{{tag_id}}
+Authorization: Bearer {{access_token}}
+
+### ===== Habits =====
+
+### List Habits
+GET http://localhost:8080/api/v1/habits?page=1&page_size=20
+Authorization: Bearer {{access_token}}
+
+### Create Habit
+POST http://localhost:8080/api/v1/habits
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "Read for 30 minutes",
+  "description": "Read books daily",
+  "habit_type": "daily",
+  "frequency": 1,
+  "color": "#10B981"
+}
+
+### Get Habit
+GET http://localhost:8080/api/v1/habits/{{habit_id}}
+Authorization: Bearer {{access_token}}
+
+### Update Habit
+PUT http://localhost:8080/api/v1/habits/{{habit_id}}
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "Read for 1 hour",
+  "frequency": 1
+}
+
+### Delete Habit
+DELETE http://localhost:8080/api/v1/habits/{{habit_id}}
+Authorization: Bearer {{access_token}}
+
+### Log Habit Completion
+POST http://localhost:8080/api/v1/habits/{{habit_id}}/log
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "value": 1,
+  "note": "Finished chapter 5"
+}
+
+### Get Habit Logs
+GET http://localhost:8080/api/v1/habits/{{habit_id}}/logs?start_date=2026-01-01&end_date=2026-06-09
+Authorization: Bearer {{access_token}}
+
+### Get Habit Stats
+GET http://localhost:8080/api/v1/habits/stats
+Authorization: Bearer {{access_token}}
+
+### Get Habit Heatmap
+GET http://localhost:8080/api/v1/habits/heatmap?year=2026
+Authorization: Bearer {{access_token}}
+
+### ===== Goals =====
+
+### List Goals
+GET http://localhost:8080/api/v1/goals?page=1&page_size=20
+Authorization: Bearer {{access_token}}
+
+### Create Goal
+POST http://localhost:8080/api/v1/goals
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Read 50 books",
+  "description": "Read 50 books this year",
+  "goal_type": "yearly",
+  "target_value": 50,
+  "unit": "books",
+  "start_date": "2026-01-01",
+  "end_date": "2026-12-31"
+}
+
+### Get Goal
+GET http://localhost:8080/api/v1/goals/{{goal_id}}
+Authorization: Bearer {{access_token}}
+
+### Update Goal
+PUT http://localhost:8080/api/v1/goals/{{goal_id}}
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Read 60 books",
+  "target_value": 60
+}
+
+### Delete Goal
+DELETE http://localhost:8080/api/v1/goals/{{goal_id}}
+Authorization: Bearer {{access_token}}
+
+### Add Goal Progress
+POST http://localhost:8080/api/v1/goals/{{goal_id}}/progress
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "value": 1,
+  "note": "Finished 'The Great Gatsby'"
+}
+
+### Get Goal Progress
+GET http://localhost:8080/api/v1/goals/{{goal_id}}/progress
+Authorization: Bearer {{access_token}}
+
+### Get Goal Milestones
+GET http://localhost:8080/api/v1/goals/{{goal_id}}/milestones
+Authorization: Bearer {{access_token}}
+
+### Create Milestone
+POST http://localhost:8080/api/v1/goals/{{goal_id}}/milestones
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Halfway there!",
+  "target_value": 25
+}
+
+### Delete Milestone
+DELETE http://localhost:8080/api/v1/goals/milestones/{{milestone_id}}
+Authorization: Bearer {{access_token}}
+
+### Get Goal Stats
+GET http://localhost:8080/api/v1/goals/stats
+Authorization: Bearer {{access_token}}
+
+### ===== Analytics =====
+
+### Get Dashboard
+GET http://localhost:8080/api/v1/analytics/dashboard
+Authorization: Bearer {{access_token}}
+
+### Get Mood Trends
+GET http://localhost:8080/api/v1/analytics/mood/trends?period=weekly&start_date=2026-01-01&end_date=2026-06-09
+Authorization: Bearer {{access_token}}
+
+### Get Mood Distribution
+GET http://localhost:8080/api/v1/analytics/mood/distribution?start_date=2026-01-01&end_date=2026-06-09
+Authorization: Bearer {{access_token}}
+
+### Get Activity Frequency
+GET http://localhost:8080/api/v1/analytics/activities/frequency?start_date=2026-01-01&end_date=2026-06-09
+Authorization: Bearer {{access_token}}
+
+### Get Activity Correlations
+GET http://localhost:8080/api/v1/analytics/activities/correlations?start_date=2026-01-01&end_date=2026-06-09
+Authorization: Bearer {{access_token}}
+
+### Get Habit Analytics
+GET http://localhost:8080/api/v1/analytics/habits
+Authorization: Bearer {{access_token}}
+
+### Get Goal Analytics
+GET http://localhost:8080/api/v1/analytics/goals
+Authorization: Bearer {{access_token}}
+
+### Get Time Analytics
+GET http://localhost:8080/api/v1/analytics/time?period=monthly&year=2026&month=6
+Authorization: Bearer {{access_token}}
+
+### ===== Public Endpoints =====
+
+### Public Feed
+GET http://localhost:8080/api/v1/public/feed?page=1
+
+### Public Timeline
+GET http://localhost:8080/api/v1/public/timeline?page=1&search=happy
+
+### Public Stats
+GET http://localhost:8080/api/v1/public/stats
+
+### Public Heatmap
+GET http://localhost:8080/api/v1/public/heatmap?year=2026
+
+### RSS Feed
+GET http://localhost:8080/rss.xml
+
+### JSON Feed
+GET http://localhost:8080/feed.json
+
+### ===== MQTT =====
+
+### Publish MQTT Message
+POST http://localhost:8080/api/v1/mqtt/publish
+Content-Type: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "topic": "life/entry/create",
+  "payload": {
+    "type": "mood",
+    "value": 7,
+    "activities": ["reading"],
+    "note": "Published via MQTT"
+  }
+}
+
+### ===== Notifications =====
+
+### Send Notification
+POST http://localhost:8080/api/v1/notifications/send
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Test Notification",
+  "message": "This is a test notification via ntfy",
+  "priority": 3,
+  "tags": ["test"]
+}
+
+### ===== Health =====
+
+### Health Check
+GET http://localhost:8080/healthz
+
+### Readiness Check
+GET http://localhost:8080/readyz
