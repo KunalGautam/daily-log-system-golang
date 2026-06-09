@@ -30,7 +30,8 @@ services:
     restart: unless-stopped
 
   ntfy:
-    image: binwiederhier/ntfy:v2.11
+    image: binwiederhier/ntfy:latest
+    command: serve
     volumes:
       - ntfy_data:/var/lib/ntfy
     environment:
