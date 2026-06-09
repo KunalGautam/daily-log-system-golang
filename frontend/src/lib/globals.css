@@ -1,17 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-slate-950: #020617;
-  --color-slate-900: #0f172a;
-  --color-slate-800: #1e293b;
-  --color-slate-700: #334155;
-  --color-slate-600: #475569;
-  --color-slate-500: #64748b;
-  --color-slate-400: #94a3b8;
-  --color-slate-300: #cbd5e1;
-  --color-slate-200: #e2e8f0;
-  --color-slate-100: #f1f5f9;
-  --color-slate-50: #f8fafc;
   --color-primary: #3b82f6;
   --color-primary-dark: #2563eb;
   --color-secondary: #8b5cf6;
@@ -21,78 +10,189 @@
 }
 
 body {
-  @apply bg-slate-950 text-slate-100 min-h-screen;
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-100);
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
-  @apply w-2;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-slate-900;
+  background: #0f172a;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-700 rounded-full;
+  background: #334155;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-600;
+  background: #475569;
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  .btn:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: #3b82f6;
+    --tw-ring-offset-color: #0f172a;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   .btn-primary {
-    @apply btn bg-primary text-white hover:bg-primary-dark;
+    background-color: var(--color-primary);
+    color: white;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
   }
   .btn-secondary {
-    @apply btn bg-slate-800 text-slate-100 hover:bg-slate-700 border border-slate-700;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    border: 1px solid #334155;
+  }
+  .btn-secondary:hover {
+    background-color: #334155;
   }
   .btn-danger {
-    @apply btn bg-danger text-white hover:bg-red-600;
+    background-color: var(--color-danger);
+    color: white;
+  }
+  .btn-danger:hover {
+    background-color: #dc2626;
   }
   .btn-ghost {
-    @apply btn text-slate-400 hover:text-slate-100 hover:bg-slate-800;
+    color: #94a3b8;
+  }
+  .btn-ghost:hover {
+    color: #f1f5f9;
+    background-color: #1e293b;
   }
   .input {
-    @apply w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    background-color: #1e293b;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: #f1f5f9;
+  }
+  .input::placeholder {
+    color: #64748b;
+  }
+  .input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: #3b82f6;
+    border-color: transparent;
   }
   .input-error {
-    @apply input border-danger focus:ring-danger;
+    border-color: var(--color-danger);
+  }
+  .input-error:focus {
+    --tw-ring-color: var(--color-danger);
   }
   .label {
-    @apply block text-sm font-medium text-slate-300 mb-1;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #cbd5e1;
+    margin-bottom: 0.25rem;
   }
   .card {
-    @apply rounded-xl border border-slate-800 bg-slate-900 p-6;
+    border-radius: 0.75rem;
+    border: 1px solid #1e293b;
+    background-color: #0f172a;
+    padding: 1.5rem;
   }
   .card-hover {
-    @apply card hover:border-slate-700 transition-colors cursor-pointer;
+    border-radius: 0.75rem;
+    border: 1px solid #1e293b;
+    background-color: #0f172a;
+    padding: 1.5rem;
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    cursor: pointer;
+  }
+  .card-hover:hover {
+    border-color: #334155;
   }
   .badge {
-    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
   }
   .badge-primary {
-    @apply badge bg-primary/10 text-primary;
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--color-primary);
   }
   .badge-success {
-    @apply badge bg-accent/10 text-accent;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-accent);
   }
   .badge-warning {
-    @apply badge bg-warning/10 text-warning;
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--color-warning);
   }
   .badge-danger {
-    @apply badge bg-danger/10 text-danger;
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--color-danger);
   }
   .page-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  @media (min-width: 640px) {
+    .page-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .page-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
   .page-header {
-    @apply flex items-center justify-between mb-8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
   }
   .page-title {
-    @apply text-2xl font-bold text-slate-100;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f1f5f9;
   }
   .page-subtitle {
-    @apply text-sm text-slate-400 mt-1;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
   }
 }

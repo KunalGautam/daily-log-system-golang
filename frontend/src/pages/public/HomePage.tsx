@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Activity, Shield, BarChart3, Globe, Github, ArrowRight } from 'lucide-react';
+import { Activity, Shield, BarChart3, Globe, GitBranch, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -72,7 +72,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <p className="text-sm text-slate-500">LifeLog &mdash; Self-hosted life logging platform</p>
           <a href="https://github.com" className="text-slate-400 hover:text-slate-100 transition-colors">
-            <Github className="w-5 h-5" />
+            <GitBranch className="w-5 h-5" />
           </a>
         </div>
       </footer>
