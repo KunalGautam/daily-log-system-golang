@@ -106,7 +106,7 @@ func Load() *Config {
 		},
 		Database: DatabaseConfig{
 			Driver:   getEnv("DB_DRIVER", "sqlite"),
-			DSN:      getEnv("DB_DSN", "life_log.db"),
+			DSN:      getEnv("DB_DSN", ""),
 			Host:     getEnv("DB_HOST", "localhost"),
 			Port:     getEnv("DB_PORT", "5432"),
 			User:     getEnv("DB_USER", "lifelog"),
