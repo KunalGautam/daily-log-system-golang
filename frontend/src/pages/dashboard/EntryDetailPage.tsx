@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { entriesApi } from '@/services/api';
-import { Card } from '@/components/ui/card';
+import type { CreateEntryRequest } from '@/types';
 import { Loader2, Save, ArrowLeft, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
@@ -17,6 +17,19 @@ interface EntryForm {
   activities: string;
   visibility: string;
   entry_date: string;
+}
+
+function toCreateRequest(f: EntryForm): CreateEntryRequest {
+  return {
+    title: f.title || undefined,
+    description: f.description || undefined,
+    markdown_content: f.markdown_content || undefined,
+    entry_type: f.entry_type as CreateEntryRequest['entry_type'],
+    mood_score: f.mood_score || undefined,
+    activities: f.activities ? f.activities.split(',').map(s => s.trim()) : undefined,
+    visibility: f.visibility as CreateEntryRequest['visibility'],
+    entry_date: f.entry_date || undefined,
+  };
 }
 
 export default function EntryDetailPage() {
@@ -49,7 +62,7 @@ export default function EntryDetailPage() {
   }, [entry, reset]);
 
   const createMutation = useMutation({
-    mutationFn: (data: EntryForm) => entriesApi.create(data),
+    mutationFn: (data: EntryForm) => entriesApi.create(toCreateRequest(data)),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['entries'] });
       toast.success('Entry created');
@@ -59,7 +72,7 @@ export default function EntryDetailPage() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (data: EntryForm) => entriesApi.update(id!, data),
+    mutationFn: (data: EntryForm) => entriesApi.update(id!, toCreateRequest(data)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['entries'] });
       queryClient.invalidateQueries({ queryKey: ['entry', id] });
