@@ -62,7 +62,7 @@ export default function PublicStatsPage() {
                 {moodDistData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={moodDistData}>
-                      <XAxis dataKey="score" stroke="#475569" tick={{ fontSize: 12 }} />
+                      <XAxis dataKey="score" tickFormatter={(v) => v} stroke="#475569" tick={{ fontSize: 12 }} />
                       <YAxis stroke="#475569" tick={{ fontSize: 12 }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', color: '#f1f5f9' }} />
                       <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} />

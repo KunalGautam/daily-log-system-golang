@@ -66,7 +66,7 @@ export default function AnalyticsPage() {
                       <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="label" stroke="#475569" tick={{ fontSize: 12 }} />
+                  <XAxis dataKey="label" tickFormatter={(v) => v} stroke="#475569" tick={{ fontSize: 12 }} />
                   <YAxis domain={[0, 10]} stroke="#475569" tick={{ fontSize: 12 }} />
                   <Tooltip
                     contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', color: '#f1f5f9' }}
@@ -89,7 +89,7 @@ export default function AnalyticsPage() {
           {moodDistData.length > 0 ? (
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={moodDistData}>
-                <XAxis dataKey="score" stroke="#475569" tick={{ fontSize: 12 }} />
+                <XAxis dataKey="score" tickFormatter={(v) => v} stroke="#475569" tick={{ fontSize: 12 }} />
                 <YAxis stroke="#475569" tick={{ fontSize: 12 }} />
                 <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', color: '#f1f5f9' }} />
                 <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} />
