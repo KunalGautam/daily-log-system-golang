@@ -120,7 +120,7 @@ type Notification struct {
 	Type      NotificationType `gorm:"type:varchar(50);not null;index"`
 	Title     string           `gorm:"type:varchar(255);not null"`
 	Body      string           `gorm:"type:text"`
-	Data      *string          `gorm:"type:jsonb"`
+	Data      *string          `gorm:"type:json"`
 	ReadAt    *time.Time       `gorm:"index"`
 	IsRead    bool             `gorm:"default:false;not null;index"`
 	CreatedAt time.Time        `gorm:"autoCreateTime;index"`

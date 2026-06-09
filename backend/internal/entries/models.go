@@ -90,8 +90,8 @@ type Entry struct {
 	Activities      *string        `gorm:"type:text"`
 	Visibility      string         `gorm:"type:varchar(20);default:'private';not null;index"`
 	IsEdited        bool           `gorm:"default:false"`
-	EditHistory     *string        `gorm:"type:jsonb"`
-	Metadata        *string        `gorm:"type:jsonb"`
+	EditHistory     *string        `gorm:"type:json"`
+	Metadata        *string        `gorm:"type:json"`
 	Source          string         `gorm:"type:varchar(20);default:'web';not null"`
 	EntryDate       time.Time      `gorm:"not null;index;index:idx_user_entry_date,priority:2"`
 	CreatedAt       time.Time      `gorm:"autoCreateTime"`

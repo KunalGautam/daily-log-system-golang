@@ -84,7 +84,7 @@ type AuditLog struct {
 	Action    AuditAction `gorm:"type:varchar(50);not null;index"`
 	IPAddress string      `gorm:"type:varchar(45)"`
 	UserAgent string      `gorm:"type:varchar(512)"`
-	Details   string      `gorm:"type:jsonb"`
+	Details   string      `gorm:"type:json"`
 	CreatedAt time.Time   `gorm:"autoCreateTime;index"`
 
 	User *users.User `gorm:"foreignKey:UserID;constraint:OnDelete:SET NULL"`
